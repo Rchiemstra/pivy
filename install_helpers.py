@@ -24,13 +24,13 @@ def swigify_header(header_file, include_file):
             break
 
     if ins_line_nr != -1:
-        contents.insert(ins_line_nr, PIVY_HEADER % (include_file))
+        contents.insert(ins_line_nr, PIVY_HEADER % (include_file.replace("\\", "/")))
         fd.seek(0)
         fd.writelines(contents)
     else:
         print("[failed]")
         sys.exit(1)
-    fd.close
+    fd.close()
 
 
 def copy_and_swigify_header(interface_dir, include_dir, fname):

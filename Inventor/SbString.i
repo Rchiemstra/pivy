@@ -1,4 +1,4 @@
-%ignore SbString::vsprintf(const char * formatstr, va_list args);
+%ignore SbString::vsprintf;
 
 /* add operator overloading methods instead of the global functions */
 %extend SbString {      
