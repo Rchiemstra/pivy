@@ -27,6 +27,11 @@ def swigify_header(header_file, include_file):
         contents.insert(ins_line_nr, PIVY_HEADER % (include_file.replace("\\", "/")))
         fd.seek(0)
         fd.writelines(contents)
+        # The header is read in text mode, so CRLF source headers (a Windows
+        # checkout) come back shorter than they are on disk. Without this the
+        # tail of the original file survives past the rewritten content and
+        # SWIG trips over the leftover "Extraneous #endif".
+        fd.truncate()
     else:
         print("[failed]")
         sys.exit(1)
