@@ -103,7 +103,11 @@ endif()
 # SWIGIFY HEADERS
 # doing this with the origin python functions
 
-execute_process(COMMAND ${Python_EXECUTABLE} ${PROJECT_SOURCE_DIR}/install_helpers.py ${PROJECT_SOURCE_DIR} ${Coin_INCLUDE_DIR})
+execute_process(COMMAND ${Python_EXECUTABLE} ${PROJECT_SOURCE_DIR}/install_helpers.py ${PROJECT_SOURCE_DIR} ${Coin_INCLUDE_DIR}
+    RESULT_VARIABLE _pivy_install_helpers_result)
+if (NOT "${_pivy_install_helpers_result}" STREQUAL "0")
+    message(FATAL_ERROR "install_helpers.py failed: ${_pivy_install_helpers_result}")
+endif()
 
 
 # copy the python module
